@@ -14,7 +14,7 @@ app.use('/expense', expenseRoutes)
 app.use('', authRoutes)
 
 db.on('open', () => {
-    app.listen(3000, ()=>{
+    app.listen(process.env.POST || 3000, ()=>{
         console.log("server started running");
     })
 })
