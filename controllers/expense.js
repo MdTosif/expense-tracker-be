@@ -39,3 +39,15 @@ exports.addExpense = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+exports.deleteExpense = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const saveExpense = await Expense.deleteOne({
+            _id:id
+        });
+        res.json(saveExpense);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}

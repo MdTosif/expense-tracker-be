@@ -1,5 +1,5 @@
 const express = require('express');
-const { allExpense, addExpense, getExpenses } = require('../controllers/expense');
+const { allExpense, addExpense, getExpenses, deleteExpense } = require('../controllers/expense');
 const { authMiddleware } = require('../controllers/auth');
 
 const router = express.Router();
@@ -10,8 +10,6 @@ router.post('/',  authMiddleware, addExpense)
 router.put('/', () => {
 
 })
-router.delete('/', () => {
-
-})
+router.delete('/', deleteExpense);
 
 module.exports = router;
