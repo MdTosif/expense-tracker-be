@@ -3,11 +3,13 @@ const {db} = require('./models/db')
 const expenseRoutes = require('./routes/expense')
 const authRoutes = require('./routes/auth')
 const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan('tiny'));
+app.use(cors());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/expense', expenseRoutes)
