@@ -1,6 +1,6 @@
 const { User } = require("../models/user");
 const jwt = require('jsonwebtoken');
-exports.signup = async (req, res) => {
+exports.signup = async (req, res, next) => {
     try {
         const { username, password } = req.body;
         const userExist = await User.findOne({
@@ -12,7 +12,7 @@ exports.signup = async (req, res) => {
             username,
             password
         });
-        res.json(newUser)
+        next()
     } catch (error) {
         res.status(400).json(error.message)
     }
