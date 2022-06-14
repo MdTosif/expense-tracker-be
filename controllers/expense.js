@@ -38,7 +38,6 @@ exports.getExpenses = async (req, res) => {
 
 exports.getDayExpenses = async (req, res) => {
     try {
-        const { userId } = req.query;
         let dayData = {};
         const saveExpense = await Expense.find({
             userId: res.user.id
@@ -56,6 +55,24 @@ exports.getDayExpenses = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+exports.getExpenseByNames = async (req, res) => {
+    try {
+        const saveExpense = await Expense.aggregate([
+            {
+                $group :
+                  {
+                    _id : "$name",
+                    price: { $sum: "$price" }
+                  }
+               },
+        ])
+        res.json(saveExpense)
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 
 exports.addExpense = async (req, res) => {
     try {
