@@ -60,12 +60,18 @@ exports.getExpenseByNames = async (req, res) => {
     try {
         const saveExpense = await Expense.aggregate([
             {
+                $match:{
+                userId : res.user.id
+                }
+            },
+            {
                 $group :
                   {
                     _id : "$name",
                     price: { $sum: "$price" }
                   }
-               },
+            },
+            { $sort : { price : -1 } }
         ])
         res.json(saveExpense)
     } catch (error) {
